@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111012">
+  <meta name="description" content="The Cure by Olivia Rodrigo, presented as an editorial lyric experience.">
+  <title>The Cure - Olivia Rodrigo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #111012;
+      --paper: #f1efe9;
+      --white: #fbf9f4;
+      --soft: #aaa4ad;
+      --violet: #a99aba;
+      --violet-light: #d9d1e3;
+      --oxblood: #8e1634;
+      --acid: #d9ff3f;
+      --line: rgba(17, 16, 18, 0.18);
+      --page: 1180px;
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background: var(--ink);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 20;
+      height: 60px;
+      color: var(--white);
+      border-bottom: 1px solid rgba(251, 249, 244, 0.22);
+      transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+    }
+
+    .topbar.is-solid {
+      color: var(--ink);
+      background: rgba(241, 239, 233, 0.94);
+      border-color: var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar__inner {
+      width: min(calc(100% - 48px), var(--page));
+      height: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    .topbar__title {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      text-transform: none;
+    }
+
+    .topbar__artist {
+      justify-self: end;
+    }
+
+    .topbar__progress {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--acid);
+    }
+
+    .topbar.is-solid .topbar__progress {
+      background: var(--oxblood);
+    }
+
+    .hero {
+      position: relative;
+      height: 88svh;
+      min-height: 620px;
+      max-height: 840px;
+      overflow: hidden;
+      background: var(--ink);
+      color: var(--white);
+      isolation: isolate;
+    }
+
+    .hero__image,
+    .hero__shade {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero__image {
+      z-index: -2;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero__shade {
+      z-index: -1;
+      background: rgba(7, 7, 9, 0.18);
+    }
+
+    .hero__inner {
+      width: min(calc(100% - 48px), var(--page));
+      height: 100%;
+      margin: 0 auto;
+      padding: 110px 0 54px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .hero__kicker {
+      width: max-content;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+      background: var(--acid);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      display: flex;
+      flex-direction: column;
+      width: min-content;
+      font-family: var(--serif);
+      font-size: 10rem;
+      font-weight: 400;
+      line-height: 0.7;
+    }
+
+    .hero h1 .the {
+      margin-left: 0.08em;
+      font-size: 0.43em;
+      font-style: italic;
+      line-height: 0.85;
+    }
+
+    .hero h1 .cure {
+      text-shadow: 0 2px 22px rgba(0, 0, 0, 0.22);
+    }
+
+    .hero__credit {
+      position: absolute;
+      right: max(24px, calc((100vw - var(--page)) / 2));
+      bottom: 54px;
+      max-width: 230px;
+      padding-left: 18px;
+      border-left: 2px solid var(--oxblood);
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .intro {
+      background: var(--acid);
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .intro__inner {
+      width: min(calc(100% - 48px), var(--page));
+      margin: 0 auto;
+      padding: 64px 0 70px;
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 48px;
+    }
+
+    .intro__label,
+    .section-meta,
+    .footer__label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+    }
+
+    .intro__statement {
+      max-width: 800px;
+      font-family: var(--serif);
+      font-size: 3.75rem;
+      font-weight: 400;
+      line-height: 0.98;
+    }
+
+    .intro__statement em {
+      color: var(--oxblood);
+      font-weight: 400;
+    }
+
+    .lyrics {
+      background: var(--paper);
+    }
+
+    .lyric-section {
+      position: relative;
+      padding: 112px 0 124px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lyric-section__inner {
+      width: min(calc(100% - 48px), var(--page));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 48px;
+    }
+
+    .section-meta {
+      position: sticky;
+      top: 102px;
+      align-self: start;
+      display: grid;
+      gap: 10px;
+    }
+
+    .section-meta__number {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      font-size: 0.72rem;
+    }
+
+    .section-meta__name {
+      max-width: 150px;
+      padding-top: 12px;
+      border-top: 1px solid currentColor;
+    }
+
+    .lyric-lines {
+      min-width: 0;
+    }
+
+    .lyric-line {
+      max-width: 870px;
+      padding: 0.11em 0;
+      color: inherit;
+      font-family: var(--serif);
+      font-size: 2.35rem;
+      line-height: 1.16;
+      opacity: 0.42;
+      transition: opacity 320ms ease, transform 320ms ease, color 320ms ease;
+    }
+
+    .js .lyric-line {
+      transform: translateY(14px);
+    }
+
+    .js .lyric-line.is-visible {
+      transform: translateY(0);
+    }
+
+    .lyric-line.is-active {
+      opacity: 1;
+    }
+
+    .js .lyric-line.is-visible.is-active {
+      transform: translateX(12px);
+    }
+
+    .lyric-line.repeat,
+    .lyric-line.title-line {
+      color: var(--oxblood);
+      font-style: italic;
+    }
+
+    .lyric-line.title-line {
+      font-size: 3rem;
+      line-height: 1;
+    }
+
+    .lyric-line.aside {
+      margin-top: 20px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-style: normal;
+      text-transform: uppercase;
+    }
+
+    .section-dark {
+      background: var(--ink);
+      color: var(--white);
+      border-color: rgba(251, 249, 244, 0.18);
+    }
+
+    .section-dark .lyric-line {
+      opacity: 0.44;
+    }
+
+    .section-dark .lyric-line.is-active {
+      opacity: 1;
+      color: var(--white);
+    }
+
+    .section-dark .lyric-line.title-line {
+      color: var(--acid);
+    }
+
+    .section-dark .section-meta__number {
+      color: var(--acid);
+    }
+
+    .section-violet {
+      background: var(--violet-light);
+      color: var(--ink);
+    }
+
+    .section-unraveled {
+      overflow: hidden;
+      background: var(--oxblood);
+      color: var(--white);
+      border-color: rgba(251, 249, 244, 0.2);
+    }
+
+    .section-unraveled .lyric-line {
+      max-width: none;
+      font-size: 3.45rem;
+      line-height: 1.02;
+      opacity: 0.48;
+    }
+
+    .section-unraveled .lyric-line.is-active {
+      opacity: 1;
+    }
+
+    .echo {
+      color: var(--acid);
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .section-stitch {
+      background: var(--violet);
+      color: var(--ink);
+    }
+
+    .section-stitch .lyric-lines {
+      padding-left: 28px;
+      border-left: 2px solid var(--oxblood);
+    }
+
+    .section-stitch .lyric-line {
+      font-size: 2.7rem;
+    }
+
+    .section-stitch .lyric-line:nth-child(even) {
+      font-style: italic;
+    }
+
+    .final-word {
+      padding: 92px 24px 98px;
+      background: var(--paper);
+      color: var(--ink);
+      text-align: center;
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .final-word span {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+    }
+
+    .final-word strong {
+      display: block;
+      margin-top: 12px;
+      color: var(--oxblood);
+      font-family: var(--serif);
+      font-size: 7rem;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 0.82;
+    }
+
+    footer {
+      background: var(--acid);
+      color: var(--ink);
+    }
+
+    .footer__inner {
+      width: min(calc(100% - 48px), var(--page));
+      margin: 0 auto;
+      padding: 54px 0 58px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    .footer__credit {
+      margin-top: 12px;
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      line-height: 1.2;
+    }
+
+    .footer__service {
+      align-self: end;
+      justify-self: end;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 900px) {
+      .hero h1 {
+        font-size: 7.4rem;
+      }
+
+      .intro__statement {
+        font-size: 3rem;
+      }
+
+      .lyric-line {
+        font-size: 2rem;
+      }
+
+      .section-unraveled .lyric-line,
+      .section-stitch .lyric-line {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .topbar {
+        height: 54px;
+      }
+
+      .topbar__inner {
+        width: calc(100% - 32px);
+        grid-template-columns: 1fr auto;
+      }
+
+      .topbar__artist {
+        display: none;
+      }
+
+      .hero {
+        height: 82svh;
+        min-height: 460px;
+        max-height: 720px;
+      }
+
+      .hero__image {
+        object-position: 62% center;
+      }
+
+      .hero__inner {
+        width: calc(100% - 32px);
+        padding: 90px 0 34px;
+      }
+
+      .hero h1 {
+        font-size: 5rem;
+      }
+
+      .hero__credit {
+        display: none;
+      }
+
+      .intro__inner,
+      .lyric-section__inner {
+        width: calc(100% - 32px);
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+
+      .intro__inner {
+        padding: 48px 0 52px;
+      }
+
+      .intro__statement {
+        font-size: 2.45rem;
+      }
+
+      .lyric-section {
+        padding: 66px 0 74px;
+      }
+
+      .section-meta {
+        position: static;
+        grid-template-columns: 42px 1fr;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .section-meta__number {
+        width: 42px;
+        height: 42px;
+      }
+
+      .section-meta__name {
+        max-width: none;
+        padding: 0 0 0 14px;
+        border-top: 0;
+        border-left: 1px solid currentColor;
+      }
+
+      .lyric-line {
+        padding: 0.18em 0;
+        font-size: 1.65rem;
+        line-height: 1.2;
+        opacity: 0.5;
+      }
+
+      .js .lyric-line.is-visible.is-active {
+        transform: none;
+      }
+
+      .lyric-line.title-line {
+        font-size: 2.25rem;
+      }
+
+      .section-unraveled .lyric-line,
+      .section-stitch .lyric-line {
+        font-size: 2.05rem;
+      }
+
+      .section-stitch .lyric-lines {
+        padding-left: 18px;
+      }
+
+      .echo {
+        display: block;
+        margin-top: 4px;
+        white-space: normal;
+      }
+
+      .final-word {
+        padding: 68px 16px 72px;
+      }
+
+      .final-word strong {
+        font-size: 4.7rem;
+      }
+
+      .footer__inner {
+        width: calc(100% - 32px);
+        grid-template-columns: 1fr;
+        gap: 38px;
+      }
+
+      .footer__service {
+        justify-self: start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .js .lyric-line {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Song navigation">
+    <div class="topbar__inner">
+      <a class="topbar__title" href="#top">The Cure</a>
+      <a href="#lyrics">Lyrics</a>
+      <span class="topbar__artist">Olivia Rodrigo</span>
+    </div>
+    <div class="topbar__progress" aria-hidden="true"></div>
+  </nav>
+
+  <header class="hero" id="top">
+    <img
+      class="hero__image"
+      src="assets/the-cure-still-life.webp"
+      alt="A glass ampoule, torn gauze, burgundy thread, and a chrome sphere arranged on dark violet fabric"
+      width="1672"
+      height="941"
+      fetchpriority="high"
+    >
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <p class="hero__kicker">Olivia Rodrigo / Lyrics</p>
+      <h1><span class="the">the</span><span class="cure">cure</span></h1>
+    </div>
+    <p class="hero__credit">Love can feel like medicine. That does not make it a cure.</p>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="intro__inner">
+        <p class="intro__label">Antidote, take three</p>
+        <h2 class="intro__statement" id="intro-title">A love song caught between <em>relief</em> and relapse.</h2>
+      </div>
+    </section>
+
+    <article class="lyrics" id="lyrics" aria-label="The Cure lyrics">
+      <section class="lyric-section" aria-labelledby="verse-one">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">01</span>
+            <h2 class="section-meta__name" id="verse-one">Verse one</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">All the pretty girls in the foreground of my mind</p>
+            <p class="lyric-line">I thought I'd done enough, but they keep moving the line</p>
+            <p class="lyric-line repeat">I thought I found the antidote this time</p>
+            <p class="lyric-line repeat">I thought I found the antidote this time</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyric-section section-violet" aria-labelledby="verse-two">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">02</span>
+            <h2 class="section-meta__name" id="verse-two">Verse two</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">And all the nights I spent fighting bad thoughts in my room</p>
+            <p class="lyric-line">Feeling so alone, might as well be on the Moon</p>
+            <p class="lyric-line repeat">I thought I found the antidote with you</p>
+            <p class="lyric-line repeat">I thought I found the antidote with you</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyric-section section-dark" aria-label="First chorus">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">03</span>
+            <h2 class="section-meta__name" id="chorus-one">Chorus</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">But my head is full of poison and my heart is full of doubt</p>
+            <p class="lyric-line">I got toxins in my bloodstream, you tried hard to suck 'em out</p>
+            <p class="lyric-line">And it feels like medication and it's good for me, I'm sure</p>
+            <p class="lyric-line">But it don't matter how your love feels anymore</p>
+            <p class="lyric-line title-line">It'll never be the cure</p>
+            <p class="lyric-line title-line">It'll never be the cure</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyric-section" aria-labelledby="verse-three">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">04</span>
+            <h2 class="section-meta__name" id="verse-three">Verse three</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">Used to play a game in my head when I'd date a guy</p>
+            <p class="lyric-line">Tally up the girls that he fucked till I start to cry</p>
+            <p class="lyric-line repeat">I thought I found the antidote this time</p>
+            <p class="lyric-line repeat">I thought I found the antidote this time</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyric-section section-unraveled" aria-labelledby="refrain-one">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">05</span>
+            <h2 class="section-meta__name" id="refrain-one">Unraveled</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">But I'm unraveled <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">I'm unraveled <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">I'm unraveled <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">I'm unraveled <span class="echo">(I'm unraveled)</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyric-section section-dark" aria-label="Second chorus">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">06</span>
+            <h2 class="section-meta__name" id="chorus-two">Chorus</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">And my head is full of poison and my heart is full of doubt</p>
+            <p class="lyric-line">I got toxins in my bloodstream, you tried hard to suck 'em out</p>
+            <p class="lyric-line">And it feels like medication and it's good for me, I'm sure</p>
+            <p class="lyric-line">But it don't matter how your love feels anymore</p>
+            <p class="lyric-line title-line">It'll never be the cure</p>
+            <p class="lyric-line title-line">It'll never be the cure</p>
+            <p class="lyric-line aside">Oh-oh-oh-oh</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyric-section section-unraveled" aria-labelledby="refrain-two">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">07</span>
+            <h2 class="section-meta__name" id="refrain-two">Still unraveling</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">'Cause, baby, I'm unraveled <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">I'm unraveled <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">I'm unraveled <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">I'm unraveled <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">I'm unraveled</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyric-section section-stitch" aria-labelledby="bridge">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">08</span>
+            <h2 class="section-meta__name" id="bridge">Bridge</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">Why can't you come stitch me up? <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">Why can't it ever be enough? <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">Why can't you come stitch me up? <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">Why can't it ever be enough? <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line repeat">It's not enough</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyric-section section-dark" aria-labelledby="final-chorus">
+        <div class="lyric-section__inner">
+          <header class="section-meta">
+            <span class="section-meta__number">09</span>
+            <h2 class="section-meta__name" id="final-chorus">Chorus / outro</h2>
+          </header>
+          <div class="lyric-lines">
+            <p class="lyric-line">All because my head is full of poison and my heart is full of doubt <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">I got toxins in my bloodstream you tried so hard to suck out <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">And it feels like medication and it's good for me, I'm sure <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line">But it don't matter how your love feels anymore <span class="echo">(I'm unraveled)</span></p>
+            <p class="lyric-line title-line">It'll never be the cure</p>
+            <p class="lyric-line title-line">It'll never be the cure</p>
+            <p class="lyric-line title-line">It'll never be</p>
+          </div>
+        </div>
+      </section>
+    </article>
+
+    <section class="final-word" aria-label="Final lyric">
+      <span>No easy antidote</span>
+      <strong>the cure</strong>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer__inner">
+      <div>
+        <p class="footer__label">Performed by</p>
+        <p class="footer__credit">Olivia Rodrigo</p>
+      </div>
+      <p class="footer__service">Designed by akira & served with CivetWeb</p>
+    </div>
+  </footer>
+
+  <script>
+    document.documentElement.classList.add('js');
+
+    const lines = [...document.querySelectorAll('.lyric-line')];
+    const topbar = document.querySelector('.topbar');
+    const progress = document.querySelector('.topbar__progress');
+    const hero = document.querySelector('.hero');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    lines.forEach((line) => revealObserver.observe(line));
+
+    let ticking = false;
+
+    function updateReadingState() {
+      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollRatio = documentHeight > 0 ? window.scrollY / documentHeight : 0;
+      progress.style.width = `${Math.min(scrollRatio * 100, 100)}%`;
+      topbar.classList.toggle('is-solid', window.scrollY > hero.offsetHeight - 60);
+
+      const readingLine = window.innerHeight * 0.46;
+      let closest = null;
+      let closestDistance = Infinity;
+
+      lines.forEach((line) => {
+        const rect = line.getBoundingClientRect();
+        const distance = Math.abs(rect.top + rect.height / 2 - readingLine);
+        if (distance < closestDistance) {
+          closest = line;
+          closestDistance = distance;
+        }
+      });
+
+      lines.forEach((line) => line.classList.toggle('is-active', line === closest));
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateReadingState);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', updateReadingState);
+    updateReadingState();
+  </script>
+</body>
+</html>
